@@ -1,0 +1,5 @@
+---
+applications:
+- name: :cohort-:first-:last-memories-client
+  memory: 64M
+  buildpack: staticfile_buildpack
