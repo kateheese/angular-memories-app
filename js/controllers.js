@@ -1,7 +1,6 @@
-app.controller('NavController', ['$scope', '$http', function($scope, $http) {
+app.controller('NavController', ['$scope', '$http', '$location', function($scope, $http, $location) {
   $http.get('http://g12-kate-heese-memories.cfapps.io/api/v1/memories/years').then(function(response){
     $scope.years = response.data.data;
-    console.log($scope.years)
   });
 }])
 
@@ -26,5 +25,9 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http) {
   }
 }])
 
-app.controller('YearController', ['$scope', function($scope) {
+app.controller('YearController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+  $http.get('http://g12-kate-heese-memories.cfapps.io/api/v1/memories/' + $routeParams.year).then(function(response){
+    $scope.allMemories = response.data.data;
+    $scope.year = $routeParams.year;
+  });
 }])
