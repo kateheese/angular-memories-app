@@ -1,18 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 section">
       <h1 class="col-head">Memories</h1>
       <div ng-repeat="memory in allMemories track by $index">
         <p><strong>When I was a kid</strong>, {{memory.attributes.old_days}}, <strong>but now </strong>{{memory.attributes.these_days}}</p>
         <p>
-          <a href="years/{{memory.attributes.year}}">
+          <a class="year" href="years/{{memory.attributes.year}}">
             - {{memory.attributes.year}}
           </a>
         </p>
         <hr>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 section">
       <h1 class="col-head">Add Memory:</h1>
       <form ng-submit="postMemory()">
         <div class="form-group">

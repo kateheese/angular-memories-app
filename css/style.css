@@ -1,7 +1,23 @@
+body {
+  background-image: url("../past-present.jpg");
+  background-size: 50%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: right bottom 20px;
+}
+
+.year-link {
+  color: #00bde4;
+}
+
 #header {
   color: #00bde4;
 }
 
 .col-head {
-  color: #67515b;
+  color: #D90E71;
+}
+
+.section {
+  background-color: white;
 }

@@ -1,5 +1,5 @@
 app.controller('NavController', ['$scope', '$http', '$location', '$rootScope', function($scope, $http, $location, $rootScope) {
-  $http.get('http://galvanize-service-registry.cfapps.io/api/v1/cohorts/g12/kids-these-days?guarantee=http://g12-kate-heese-memories.cfapps.io').then(function(response){
+  $http.get('http://galvanize-service-registry.cfapps.io/api/v1/cohorts/g12/kids-these-days').then(function(response){
     $rootScope.url = response.data.data[0].attributes.url
     $http.get($rootScope.url + '/api/v1/memories/years').then(function(response){
       $scope.years = response.data.data;
