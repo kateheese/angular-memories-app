@@ -1,16 +1,22 @@
-app.controller('NavController', ['$scope', '$http', '$location', function($scope, $http, $location) {
-  $http.get('http://g12-kate-heese-memories.cfapps.io/api/v1/memories/years').then(function(response){
-    $scope.years = response.data.data;
+app.controller('NavController', ['$scope', '$http', '$location', '$rootScope', function($scope, $http, $location, $rootScope) {
+  $http.get('http://galvanize-service-registry.cfapps.io/api/v1/cohorts/g12/kids-these-days?guarantee=http://g12-kate-heese-memories.cfapps.io').then(function(response){
+    $rootScope.url = response.data.data[0].attributes.url
+    $http.get($rootScope.url + '/api/v1/memories/years').then(function(response){
+      $scope.years = response.data.data;
+    })
   });
 }])
 
-app.controller('HomeController', ['$scope', '$http', function($scope, $http) {
-  $http.get('http://g12-kate-heese-memories.cfapps.io/api/v1/memories').then(function(response){
-    $scope.allMemories = response.data.data;
-  });
+app.controller('HomeController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+  $rootScope.$watch('url', function(){
+    $http.get($rootScope.url + '/api/v1/memories').then(function(response){
+      $scope.allMemories = response.data.data;
+    })
+  })
+
 
   $scope.postMemory = function () {
-    $http.post('http://g12-kate-heese-memories.cfapps.io/api/v1/memories', {
+    $http.post($rootScope.url + '/api/v1/memories', {
       "data": {
         "type": "memory",
         "attributes": {
@@ -25,9 +31,11 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http) {
   }
 }])
 
-app.controller('YearController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-  $http.get('http://g12-kate-heese-memories.cfapps.io/api/v1/memories/' + $routeParams.year).then(function(response){
-    $scope.allMemories = response.data.data;
-    $scope.year = $routeParams.year;
-  });
+app.controller('YearController', ['$scope', '$http', '$routeParams', '$rootScope', function($scope, $http, $routeParams, $rootScope) {
+  $rootScope.$watch('url', function(){
+    $http.get($rootScope.url + '/api/v1/memories/' + $routeParams.year).then(function(response){
+      $scope.allMemories = response.data.data;
+      $scope.year = $routeParams.year;
+    })
+  })
 }])
